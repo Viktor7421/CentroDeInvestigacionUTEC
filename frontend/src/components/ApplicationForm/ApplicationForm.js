@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Form } from 'semantic-ui-react'
 import "./ApplicationForm.scss"
+import UploadFile from "../UploadFile/UploadFile"
 
 const optionsDepAcad = [
     { key: 'bioi', text: 'Bioingeniería',               value: 'bioingenieria' },
@@ -50,10 +51,32 @@ const optionsGenResTop = [
     { key: 'pat', text: 'Patrimonio',                               value: 'other' },
 ]
 
-const options = [
-  { key: 'm', text: 'Male', value: 'male' },
-  { key: 'f', text: 'Female', value: 'female' },
-  { key: 'o', text: 'Other', value: 'other' },
+const optionsPart = [
+    { key: 'aye', text: 'Entidad Solicitante',  value: 'male' },
+    { key: 'ama', text: 'Entidad Asociada',     value: 'female' },
+    { key: 'bio', text: 'Otro',                 value: 'other' },
+]
+
+const optionsFin = [
+  { key: 'm', text: 'Fondo concursable externo (RFP)', value: 'male' },
+  { key: 'f', text: 'Fondo con empresas (Business)', value: 'female' },
+  { key: 'f', text: 'Financiamiento interno (UTEC)', value: 'female' },
+  { key: 'o', text: 'Otro', value: 'other' },
+]
+
+const optionsCurrency = [
+    { key: 'm', text: 'USD', value: 'male' },
+    { key: 'f', text: 'PEN', value: 'female' },
+    { key: 'f', text: 'GBP', value: 'female' },
+    { key: 'f', text: 'CHF', value: 'female' },
+    { key: 'f', text: 'EUR', value: 'female' },
+    { key: 'o', text: 'Otro', value: 'other' },
+]
+
+const optionsStatus = [
+    { key: 'm', text: 'Financiado', value: 'male' },
+    { key: 'f', text: 'No financiado', value: 'female' },
+    { key: 'f', text: 'Pendiente', value: 'female' },
 ]
 
 class ApplicationForm extends Component {
@@ -95,29 +118,49 @@ class ApplicationForm extends Component {
                         placeholder='Tipo de proyecto'
                     />
                 </Form.Group>
-                <Form.Group inline>
-                <label>Size</label>
-                <Form.Radio
-                    label='Small'
-                    value='sm'
-                    checked={value === 'sm'}
-                    onChange={this.handleChange}
-                />
-                <Form.Radio
-                    label='Medium'
-                    value='md'
-                    checked={value === 'md'}
-                    onChange={this.handleChange}
-                />
-                <Form.Radio
-                    label='Large'
-                    value='lg'
-                    checked={value === 'lg'}
-                    onChange={this.handleChange}
-                />
+                <Form.Group widths='equal'>
+                    <Form.Input fluid label='Investigador Principal (PI)' placeholder='Investigador Principal (PI)' />
+                    <Form.Input fluid label='Coinvestigadores de UTEC (CO-PI)' placeholder='Coinvestigadores de UTEC (CO-PI)' />
                 </Form.Group>
-                <Form.TextArea label='About' placeholder='Tell us more about you...' />
-                <Form.Checkbox label='I agree to the Terms and Conditions' />
+                <Form.Group widths='equal'>
+                    <Form.Select
+                        fluid
+                        label='Tipo de participación de UTEC / UTEC participation'
+                        options={optionsPart}
+                        placeholder='Tipo de participación de UTEC / UTEC participation'
+                    />
+                    <Form.Input fluid label='Fecha aproximada de inicio del proyecto' placeholder='Fecha aproximada de inicio del proyecto' type='date'/>
+                </Form.Group>
+                <Form.Group widths='equal'>
+                    <Form.Input fluid label='Programa o institución financiadora' placeholder='Programa o institución financiadora' />
+                    <Form.Select
+                        fluid
+                        label='Tipo de entidad financiadora'
+                        options={optionsFin}
+                        placeholder='Tipo de entidad financiadora'
+                    />
+                </Form.Group>
+                <Form.Group widths='equal'>
+                    <Form.Input fluid label='Presupuesto del Proyecto' placeholder='Presupuesto del Proyecto' />
+                    <Form.Input fluid label='Overhead' placeholder='Overhead' />
+                </Form.Group>
+                <Form.Group widths='equal'>
+                    <Form.Input fluid label='Monto asignado para compra de equipamiento' placeholder='Monto asignado para compra de equipamiento' />
+                    <Form.Select
+                        fluid
+                        label='Moneda'
+                        options={optionsCurrency}
+                        placeholder='Moneda'
+                    />
+                    <Form.Select
+                        fluid
+                        label='Estado de financiamiento'
+                        options={optionsStatus}
+                        placeholder='Estado de financiamiento'
+                    />
+                </Form.Group>
+                <UploadFile/>
+                <Form.Checkbox label='Por favor indique si requiere aprobación de la DIN, DGA y DAF. Esto aplica a todas las propuestas que contemplen un pago de overhead menor a 30%.' />
                 <Form.Button>Submit</Form.Button>
             </Form>
         </div>

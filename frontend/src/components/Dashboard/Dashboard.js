@@ -1,40 +1,106 @@
-import React from 'react';
-import Logout from '../Logout/Logout'
-import { Dropdown, Icon, Menu, Image } from 'semantic-ui-react'
+import React, { useState } from 'react';
+import Logout from '../Logout/Logout';
+import Content from '../Content/Content'
+import ApplicationForm from '../ApplicationForm/ApplicationForm'
+import { Link, useNavigate } from 'react-router-dom';
+import { BsFillHouseDoorFill, BsLayoutTextSidebarReverse } from 'react-icons/bs';
+import { Routes, Route } from 'react-router-dom';
 import './Dashboard.scss';
+import { Form } from 'react-bootstrap';
+
 
 function Dashboard() {
+  let navigate = useNavigate();
   return (
-    <div>
-      <Menu attached='top' secondary>
-        <Dropdown item icon='wrench' simple>
-          <Dropdown.Menu>
-            <Dropdown.Item>
-              <Icon name='dropdown' />
-              <span className='text'>New</span>
+    <div id="conteiner-dashboard">
+      <div class="navbar">
+        <a href="" class="logo">Dashboard</a>
+      </div>
+      <div class="area"></div><nav class="main-menu">
+            <ul>
+                <Link to=''>
+                  <li>
+                      <a href="http://justinfarrow.com">
+                          <i class="fa fa-home fa-2x"><BsFillHouseDoorFill /></i>
+                          <span class="nav-text">
+                              Dashboard
+                          </span>
+                      </a>
+                  </li>
+                </Link>
+                <Link to='form'>
+                  <li class="has-subnav">
+                      <a href="">
+                          <i class="fa fa-home fa-2x"><BsLayoutTextSidebarReverse /></i>
+                          <span class="nav-text">
+                              Forms
+                          </span>
+                      </a>
+                  </li>
+                </Link>
+                <li class="has-subnav">
+                    <a href="#">
+                        <i class="fa fa-home fa-2x"><BsFillHouseDoorFill /></i>
+                        <span class="nav-text">
+                            Pages
+                        </span>
+                    </a>
+                   
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="fa fa-home fa-2x"><BsFillHouseDoorFill /></i>
+                        <span class="nav-text">
+                            Graphs and Statistics
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="fa fa-home fa-2x"><BsFillHouseDoorFill /></i>
+                        <span class="nav-text">
+                           Quotes
+                        </span>
+                    </a>
+                </li>
+                <li>
+                   <a href="#">
+                        <i class="fa fa-home fa-2x"><BsFillHouseDoorFill /></i>
+                        <span class="nav-text">
+                            Tables
+                        </span>
+                    </a>
+                </li>
+                <li>
+                   <a href="#">
+                        <i class="fa fa-home fa-2x"><BsFillHouseDoorFill /></i>
+                        <span class="nav-text">
+                            Maps
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="fa fa-home fa-2x"><BsFillHouseDoorFill /></i>
+                        <span class="nav-text">
+                            Documentation
+                        </span>
+                    </a>
+                </li>
+            </ul>
 
-              <Dropdown.Menu>
-                <Dropdown.Item>Document</Dropdown.Item>
-                <Dropdown.Item>Image</Dropdown.Item>
-              </Dropdown.Menu>
-            </Dropdown.Item>
-            <Dropdown.Item>Open</Dropdown.Item>
-            <Dropdown.Item>Save...</Dropdown.Item>
-            <Dropdown.Item>Edit Permissions</Dropdown.Item>
-            <Dropdown.Divider />
-            <Dropdown.Header>Export</Dropdown.Header>
-            <Dropdown.Item>Share</Dropdown.Item>
-          </Dropdown.Menu>
-        </Dropdown>
-
-        <Menu.Menu position='right'>
-          <Dropdown item trigger={<span><Image src='https://lh3.googleusercontent.com/ogw/ADea4I4SI_2r3mTqHmWpJtJMlQnTr9HvORbaMKB0Upao=s32-c-mo' avatar /></span>} simple>
-            <Dropdown.Menu>
-              <Logout/>
-            </Dropdown.Menu>
-          </Dropdown>
-        </Menu.Menu>
-      </Menu>
+            <ul class="logout">
+                <li>
+                  <Logout/>
+                </li>  
+            </ul>
+        </nav>
+        <div class="body-text">
+          <Routes>
+            <Route path='' element={<Content />} />
+            <Route path='form' element={<ApplicationForm />} />
+          </Routes>
+        </div>
     </div>
   );
 }
