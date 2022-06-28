@@ -14,14 +14,56 @@ import (
 	"github.com/rs/cors"
 
 	_ "github.com/jinzhu/gorm/dialects/postgres"
+
+	"os"
+
+	"github.com/joho/godotenv"
 )
 
-type User struct {
+type Usuario struct {
 	gorm.Model
 
-	Name string
+	Nombre string
 
-	Password string
+	Cargo string
+
+	Correo string
+}
+
+type Encuestas struct {
+	gorm.Model
+
+	Estado_financiamiento string
+
+	Moneda string
+
+	Fecha_de_inicio_de_Proyecto string
+
+	Centro_de_Investigación string
+
+	Departamento_Academico string
+
+	Titulo_de_Proyecto string
+
+	Linea_de_investigacion string
+
+	Coeinvestigadores_de_UTEC string
+
+	Investigador_Principal string
+
+	Tipo_de_participacion string
+
+	POI_Financiadora string
+
+	Overhead string
+
+	Presupuesto_proyecto string
+
+	Tipo_entidad_financiadora string
+
+	Monto_asignado string
+
+	Se_requiere_aprovacion string
 }
 
 var db *gorm.DB
@@ -29,8 +71,8 @@ var db *gorm.DB
 var err error
 
 var (
-	users = []User{
-		{Name: "Jimmy", Password: "ABC123"},
+	users = []Usuario{
+		{Nombre: "Roberto", Cargo: "Profesor", Correo: "abc123@email.com"},
 	}
 )
 
@@ -38,7 +80,8 @@ func main() {
 
 	router := mux.NewRouter()
 
-	db, err = gorm.Open("postgres", "host=localhost port=5432 user=postgres dbname=<DBname> sslmode=disable password=<password>")
+	godotenv.Load(".env")
+	db, err = gorm.Open("postgres", os.Getenv("POSTGRES"))
 
 	if err != nil {
 
@@ -58,13 +101,13 @@ func main() {
 
 	handler := cors.Default().Handler(router)
 
-	log.Fatal(http.ListenAndServe(":3000", handler))
+	log.Fatal(http.ListenAndServe(":5000", handler))
 
 }
 
 func GetUsers(w http.ResponseWriter, r *http.Request) {
 
-	var users []User
+	var users []Usuario
 
 	db.Find(&users)
 
@@ -76,7 +119,7 @@ func GetUser(w http.ResponseWriter, r *http.Request) {
 
 	params := mux.Vars(r)
 
-	var user User
+	var user Usuario
 
 	db.First(&user, params["id"])
 
@@ -86,7 +129,7 @@ func GetUser(w http.ResponseWriter, r *http.Request) {
 
 func PostUserTest(w http.ResponseWriter, r *http.Request) {
 
-	db.AutoMigrate(&User{})
+	db.AutoMigrate(&Usuario{})
 
 	for index := range users {
 
@@ -102,13 +145,13 @@ func DeleteUser(w http.ResponseWriter, r *http.Request) {
 
 	params := mux.Vars(r)
 
-	var user User
+	var user Usuario
 
 	db.First(&user, params["id"])
 
 	db.Delete(&user)
 
-	var users []User
+	var users []Usuario
 
 	db.Find(&users)
 
