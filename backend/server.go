@@ -23,47 +23,51 @@ import (
 type Usuario struct {
 	gorm.Model
 
-	Nombre string
+	Nombre string `json:"Nombre"`
 
-	Cargo string
+	Cargo string `json:"Cargo"`
 
-	Correo string
+	Correo string `json:"Correo"`
 }
 
 type Encuestas struct {
 	gorm.Model
 
-	Estado_financiamiento string
+	UsuarioId string `json:"UsuarioId"`
 
-	Moneda string
+	Estado_financiamiento string `json:"Estado_financiamiento"`
 
-	Fecha_de_inicio_de_Proyecto string
+	Moneda string `json:"Moneda"`
 
-	Centro_de_Investigación string
+	Fecha_de_inicio_de_Proyecto string `json:"Fecha_de_inicio_de_Proyecto"`
 
-	Departamento_Academico string
+	Centro_de_Investigación string `json:"Centro_de_Investigación"`
 
-	Titulo_de_Proyecto string
+	Departamento_Academico string `json:"Departamento_Academico"`
 
-	Linea_de_investigacion string
+	Titulo_de_Proyecto string `json:"Titulo_de_Proyecto"`
 
-	Coeinvestigadores_de_UTEC string
+	Linea_de_investigacion string `json:"Linea_de_investigacion"`
 
-	Investigador_Principal string
+	Coeinvestigadores_de_UTEC string `json:"Coeinvestigadores_de_UTEC"`
 
-	Tipo_de_participacion string
+	Investigador_Principal string `json:"Investigador_Principal"`
 
-	POI_Financiadora string
+	Tipo_de_participacion string `json:"Tipo_de_participacion"`
 
-	Overhead string
+	POI_Financiadora string `json:"POI_Financiadora"`
 
-	Presupuesto_proyecto string
+	Overhead string `json:"Overhead"`
 
-	Tipo_entidad_financiadora string
+	Presupuesto_proyecto string `json:"Presupuesto_proyecto"`
 
-	Monto_asignado string
+	Tipo_entidad_financiadora string `json:"Tipo_entidad_financiadora"`
 
-	Se_requiere_aprovacion string
+	Monto_asignado string `json:"Monto_asignado"`
+
+	Se_requiere_aprovacion string `json:"Se_requiere_aprovacion"`
+
+	Estado string `json:"Estado"`
 }
 
 var db *gorm.DB
@@ -73,6 +77,30 @@ var err error
 var (
 	users = []Usuario{
 		{Nombre: "Roberto", Cargo: "Profesor", Correo: "abc123@email.com"},
+		{Nombre: "Maria", Cargo: "Administrador", Correo: "qwerty@email.com"},
+	}
+
+	forms = []Encuestas{
+		{
+			UsuarioId:                   "1",
+			Estado_financiamiento:       "Roberto",
+			Moneda:                      "Profesor",
+			Fecha_de_inicio_de_Proyecto: "abc123@email.com",
+			Centro_de_Investigación:     "abc123@email.com",
+			Departamento_Academico:      "abc123@email.com",
+			Titulo_de_Proyecto:          "abc123@email.com",
+			Linea_de_investigacion:      "abc123@email.com",
+			Coeinvestigadores_de_UTEC:   "abc123@email.com",
+			Investigador_Principal:      "abc123@email.com",
+			Tipo_de_participacion:       "abc123@email.com",
+			POI_Financiadora:            "abc123@email.com",
+			Overhead:                    "abc123@email.com",
+			Presupuesto_proyecto:        "abc123@email.com",
+			Tipo_entidad_financiadora:   "abc123@email.com",
+			Monto_asignado:              "abc123@email.com",
+			Se_requiere_aprovacion:      "abc123@email.com",
+			Estado:                      "aprovado",
+		},
 	}
 )
 
@@ -95,9 +123,21 @@ func main() {
 
 	router.HandleFunc("/users/{id}", GetUser).Methods("GET")
 
+	router.HandleFunc("/add/users", PostUser).Methods("POST")
+
 	router.HandleFunc("/users/test", PostUserTest).Methods("POST")
 
 	router.HandleFunc("/users/{id}", DeleteUser).Methods("DELETE")
+
+	router.HandleFunc("/forms", GetForms).Methods("GET")
+
+	router.HandleFunc("/forms/{id}", GetForm).Methods("GET")
+
+	router.HandleFunc("/add/forms", PostForm).Methods("POST")
+
+	router.HandleFunc("/forms/test", PostFormTest).Methods("POST")
+
+	router.HandleFunc("/forms/{id}", DeleteForm).Methods("DELETE")
 
 	handler := cors.Default().Handler(router)
 
@@ -141,6 +181,24 @@ func PostUserTest(w http.ResponseWriter, r *http.Request) {
 
 }
 
+func PostUser(w http.ResponseWriter, r *http.Request) {
+
+	var user Usuario
+	err := json.NewDecoder(r.Body).Decode(&user)
+
+	if err != nil {
+		http.Error(w, "Error en los datos recibidos"+err.Error(), 400)
+		return
+	}
+
+	db.AutoMigrate(&Usuario{})
+
+	db.Create(&user)
+
+	json.NewEncoder(w).Encode(&user)
+
+}
+
 func DeleteUser(w http.ResponseWriter, r *http.Request) {
 
 	params := mux.Vars(r)
@@ -156,5 +214,77 @@ func DeleteUser(w http.ResponseWriter, r *http.Request) {
 	db.Find(&users)
 
 	json.NewEncoder(w).Encode(&users)
+
+}
+
+func GetForms(w http.ResponseWriter, r *http.Request) {
+
+	var forms []Encuestas
+
+	db.Find(&forms)
+
+	json.NewEncoder(w).Encode(&forms)
+
+}
+
+func GetForm(w http.ResponseWriter, r *http.Request) {
+
+	params := mux.Vars(r)
+
+	var form Encuestas
+
+	db.First(&form, params["id"])
+
+	json.NewEncoder(w).Encode(&form)
+
+}
+
+func PostFormTest(w http.ResponseWriter, r *http.Request) {
+
+	db.AutoMigrate(&Encuestas{})
+
+	for index := range forms {
+
+		db.Create(&forms[index])
+
+	}
+
+	json.NewEncoder(w).Encode(&forms)
+
+}
+
+func PostForm(w http.ResponseWriter, r *http.Request) {
+
+	var form Encuestas
+	err := json.NewDecoder(r.Body).Decode(&form)
+
+	if err != nil {
+		http.Error(w, "Error en los datos recibidos"+err.Error(), 400)
+		return
+	}
+
+	db.AutoMigrate(&Encuestas{})
+
+	db.Create(&form)
+
+	json.NewEncoder(w).Encode(&form)
+
+}
+
+func DeleteForm(w http.ResponseWriter, r *http.Request) {
+
+	params := mux.Vars(r)
+
+	var form Encuestas
+
+	db.First(&form, params["id"])
+
+	db.Delete(&form)
+
+	var forms []Encuestas
+
+	db.Find(&forms)
+
+	json.NewEncoder(w).Encode(&forms)
 
 }
