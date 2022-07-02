@@ -66,3 +66,10 @@ Para tratar con valores especificos en las rutas:
 ```
 router.HandleFunc("/{_id}", _funcion).Methods(_tipoDeMetodo)
 ```
+
+Para conectar la base de datos en postgres deben crear un `.env` con el siguiente contenido:
+
+```
+POSTGRES = "host=localhost port=5432 user=postgres dbname=nombreDeLaBaseDeDatos sslmode=disable password=contraseña"
+```
+
