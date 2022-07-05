@@ -1,6 +1,7 @@
-package main
+package handlers
 
 import (
+	"backend/bd"
 	"backend/models"
 	"encoding/json"
 	"net/http"
@@ -8,11 +9,18 @@ import (
 	"github.com/gorilla/mux"
 )
 
+var (
+	users = []models.Usuario{
+		{Nombre: "Roberto", Cargo: "Profesor", Correo: "abc123@email.com"},
+		{Nombre: "Maria", Cargo: "Administrador", Correo: "qwerty@email.com"},
+	}
+)
+
 func GetUsers(w http.ResponseWriter, r *http.Request) {
 
 	var users []models.Usuario
 
-	db.Find(&users)
+	bd.DB.Find(&users)
 
 	json.NewEncoder(w).Encode(&users)
 
@@ -24,7 +32,7 @@ func GetUser(w http.ResponseWriter, r *http.Request) {
 
 	var user models.Usuario
 
-	db.First(&user, params["id"])
+	bd.DB.First(&user, params["id"])
 
 	json.NewEncoder(w).Encode(&user)
 
@@ -32,11 +40,11 @@ func GetUser(w http.ResponseWriter, r *http.Request) {
 
 func PostUserTest(w http.ResponseWriter, r *http.Request) {
 
-	db.AutoMigrate(&models.Usuario{})
+	bd.DB.AutoMigrate(&models.Usuario{})
 
 	for index := range users {
 
-		db.Create(&users[index])
+		bd.DB.Create(&users[index])
 
 	}
 
@@ -54,9 +62,9 @@ func PostUser(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	db.AutoMigrate(&models.Usuario{})
+	bd.DB.AutoMigrate(&models.Usuario{})
 
-	db.Create(&user)
+	bd.DB.Create(&user)
 
 	json.NewEncoder(w).Encode(&user)
 
@@ -68,13 +76,13 @@ func DeleteUser(w http.ResponseWriter, r *http.Request) {
 
 	var user models.Usuario
 
-	db.First(&user, params["id"])
+	bd.DB.First(&user, params["id"])
 
-	db.Delete(&user)
+	bd.DB.Delete(&user)
 
 	var users []models.Usuario
 
-	db.Find(&users)
+	bd.DB.Find(&users)
 
 	json.NewEncoder(w).Encode(&users)
 
