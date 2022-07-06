@@ -24,7 +24,7 @@ func main() {
 
 	router.HandleFunc("/users/{id}", handlers.GetUser).Methods("GET")
 
-	router.HandleFunc("/users/auth", handlers.GetAuth).Methods("POST")
+	router.HandleFunc("/users/auth", handlers.Auth).Methods("POST")
 
 	router.HandleFunc("/add/users", handlers.PostUser).Methods("POST")
 

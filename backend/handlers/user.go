@@ -3,17 +3,11 @@ package handlers
 import (
 	"backend/bd"
 	"backend/models"
+	"backend/test"
 	"encoding/json"
 	"net/http"
 
 	"github.com/gorilla/mux"
-)
-
-var (
-	users = []models.Usuario{
-		{Nombre: "Roberto", Cargo: "Profesor", Correo: "abc123@email.com"},
-		{Nombre: "Maria", Cargo: "Administrador", Correo: "qwerty@email.com"},
-	}
 )
 
 func GetUsers(w http.ResponseWriter, r *http.Request) {
@@ -42,13 +36,13 @@ func PostUserTest(w http.ResponseWriter, r *http.Request) {
 
 	bd.DB.AutoMigrate(&models.Usuario{})
 
-	for index := range users {
+	for index := range test.Users {
 
-		bd.DB.Create(&users[index])
+		bd.DB.Create(&test.Users[index])
 
 	}
 
-	json.NewEncoder(w).Encode(&users)
+	json.NewEncoder(w).Encode(&test.Users)
 
 }
 

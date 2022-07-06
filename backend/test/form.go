@@ -2,9 +2,9 @@ package test
 
 import "backend/models"
 
-var forms = []models.Encuestas{
+var Forms = []models.Encuestas{
 	{
-		UsuarioId:                   "1",
+		UsuarioId:                   1,
 		Estado_financiamiento:       "Roberto",
 		Moneda:                      "Profesor",
 		Fecha_de_inicio_de_Proyecto: "abc123@email.com",
@@ -16,11 +16,11 @@ var forms = []models.Encuestas{
 		Investigador_Principal:      "abc123@email.com",
 		Tipo_de_participacion:       "abc123@email.com",
 		POI_Financiadora:            "abc123@email.com",
-		Overhead:                    "abc123@email.com",
-		Presupuesto_proyecto:        "abc123@email.com",
+		Overhead:                    100,
+		Presupuesto_proyecto:        100,
 		Tipo_entidad_financiadora:   "abc123@email.com",
-		Monto_asignado:              "abc123@email.com",
+		Monto_asignado:              100,
 		Se_requiere_aprovacion:      "abc123@email.com",
-		Estado:                      "aprovado",
+		Tipo_de_Proyecto:            "aprovado",
 	},
 }
