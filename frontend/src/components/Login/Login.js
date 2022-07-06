@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { GoogleLogin } from 'react-google-login';
 import { Grid } from 'semantic-ui-react'
@@ -7,6 +8,7 @@ import { gapi } from 'gapi-script';
 import './Login.scss';
 
 const clientId = "540283367101-adurt52vr2dugihk25oh12dihiv9k2ju.apps.googleusercontent.com";
+const AUTH_URL = 'http://127.0.0.1:5000/users/auth';
 
 function Login() {
   let navigate = useNavigate();
@@ -29,8 +31,31 @@ function Login() {
     }
   }, [success]);
 
-  const onSuccess = (res) => {
-    console.log("LOGIN SUCCESS! Current user:", res);
+  const onSuccess = async (res) => {
+    try {
+      const response = await axios.post(AUTH_URL,
+        JSON.stringify({
+          GoogleId: res.googleId,
+          Nombre: res.profileObj.name,
+          Cargo: "Profesor", 
+          Correo: res.profileObj.email
+        }),
+        {
+            headers : {
+                'Content-Type': 'application/json',
+            }
+        });
+      console.log("YES");
+      console.log(response);
+      window.localStorage.setItem('user-session', JSON.stringify({...response.data}));
+    } catch(err){
+        console.log("ERROR");
+        console.log(err.response);
+    }
+    console.log("GoogleId: ", res.googleId);
+    console.log("Nombre: ", res.profileObj.name);
+    console.log("Cargo: ", "Profesor");
+    console.log("Correo: ", res.profileObj.email);
     setSuccess(true);
   }
 

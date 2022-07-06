@@ -13,35 +13,35 @@ function Dashboard() {
   let navigate = useNavigate();
   return (
     <div id="conteiner-dashboard">
-      <div class="navbar">
-        <a href="" class="logo">Dashboard</a>
+      <div className="navbar">
+        <a href="" className="logo">Dashboard</a>
       </div>
-      <div class="area"></div><nav class="main-menu">
+      <div className="area"></div><nav className="main-menu">
             <ul>
                 <Link to=''>
                   <li>
                       <a href="http://justinfarrow.com">
-                          <i class="fa fa-home fa-2x"><BsFillHouseDoorFill /></i>
-                          <span class="nav-text">
+                          <i className="fa fa-home fa-2x"><BsFillHouseDoorFill /></i>
+                          <span className="nav-text">
                               Dashboard
                           </span>
                       </a>
                   </li>
                 </Link>
                 <Link to='form'>
-                  <li class="has-subnav">
-                      <a href="">
-                          <i class="fa fa-home fa-2x"><BsLayoutTextSidebarReverse /></i>
-                          <span class="nav-text">
+                  <li className="has-subnav">
+                      <a href="#">
+                          <i className="fa fa-home fa-2x"><BsLayoutTextSidebarReverse /></i>
+                          <span className="nav-text">
                               Forms
                           </span>
                       </a>
                   </li>
                 </Link>
-                <li class="has-subnav">
+                <li className="has-subnav">
                     <a href="#">
-                        <i class="fa fa-home fa-2x"><BsFillHouseDoorFill /></i>
-                        <span class="nav-text">
+                        <i className="fa fa-home fa-2x"><BsFillHouseDoorFill /></i>
+                        <span className="nav-text">
                             Pages
                         </span>
                     </a>
@@ -49,53 +49,53 @@ function Dashboard() {
                 </li>
                 <li>
                     <a href="#">
-                        <i class="fa fa-home fa-2x"><BsFillHouseDoorFill /></i>
-                        <span class="nav-text">
+                        <i className="fa fa-home fa-2x"><BsFillHouseDoorFill /></i>
+                        <span className="nav-text">
                             Graphs and Statistics
                         </span>
                     </a>
                 </li>
                 <li>
                     <a href="#">
-                        <i class="fa fa-home fa-2x"><BsFillHouseDoorFill /></i>
-                        <span class="nav-text">
+                        <i className="fa fa-home fa-2x"><BsFillHouseDoorFill /></i>
+                        <span className="nav-text">
                            Quotes
                         </span>
                     </a>
                 </li>
                 <li>
                    <a href="#">
-                        <i class="fa fa-home fa-2x"><BsFillHouseDoorFill /></i>
-                        <span class="nav-text">
+                        <i className="fa fa-home fa-2x"><BsFillHouseDoorFill /></i>
+                        <span className="nav-text">
                             Tables
                         </span>
                     </a>
                 </li>
                 <li>
                    <a href="#">
-                        <i class="fa fa-home fa-2x"><BsFillHouseDoorFill /></i>
-                        <span class="nav-text">
+                        <i className="fa fa-home fa-2x"><BsFillHouseDoorFill /></i>
+                        <span className="nav-text">
                             Maps
                         </span>
                     </a>
                 </li>
                 <li>
                     <a href="#">
-                        <i class="fa fa-home fa-2x"><BsFillHouseDoorFill /></i>
-                        <span class="nav-text">
+                        <i className="fa fa-home fa-2x"><BsFillHouseDoorFill /></i>
+                        <span className="nav-text">
                             Documentation
                         </span>
                     </a>
                 </li>
             </ul>
 
-            <ul class="logout">
+            <ul className="logout">
                 <li>
                   <Logout/>
                 </li>  
             </ul>
         </nav>
-        <div class="body-text">
+        <div className="body-text">
           <Routes>
             <Route path='' element={<Content />} />
             <Route path='form' element={<ApplicationForm />} />
