@@ -42,6 +42,8 @@ func main() {
 
 	router.HandleFunc("/forms/{id}", handlers.DeleteForm).Methods("DELETE")
 
+	router.HandleFunc("/add/file/{id}", handlers.PostFile).Methods("POST")
+
 	handler := cors.Default().Handler(router)
 
 	log.Fatal(http.ListenAndServe(":5000", handler))

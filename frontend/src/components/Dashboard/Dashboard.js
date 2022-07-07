@@ -2,15 +2,16 @@ import React, { useState } from 'react';
 import Logout from '../Logout/Logout';
 import Content from '../Content/Content'
 import ApplicationForm from '../ApplicationForm/ApplicationForm'
-import { Link, useNavigate } from 'react-router-dom';
+import UnicForm from '../Form/Form'
+import { Link } from 'react-router-dom';
 import { BsFillHouseDoorFill, BsLayoutTextSidebarReverse } from 'react-icons/bs';
 import { Routes, Route } from 'react-router-dom';
 import './Dashboard.scss';
 import { Form } from 'react-bootstrap';
+import AddForm from '../AddForm/AddForm';
 
 
 function Dashboard() {
-  let navigate = useNavigate();
   return (
     <div id="conteiner-dashboard">
       <div className="navbar">
@@ -20,7 +21,7 @@ function Dashboard() {
             <ul>
                 <Link to=''>
                   <li>
-                      <a href="http://justinfarrow.com">
+                      <a href="">
                           <i className="fa fa-home fa-2x"><BsFillHouseDoorFill /></i>
                           <span className="nav-text">
                               Dashboard
@@ -28,7 +29,7 @@ function Dashboard() {
                       </a>
                   </li>
                 </Link>
-                <Link to='form'>
+                <Link to='add'>
                   <li className="has-subnav">
                       <a href="#">
                           <i className="fa fa-home fa-2x"><BsLayoutTextSidebarReverse /></i>
@@ -38,55 +39,6 @@ function Dashboard() {
                       </a>
                   </li>
                 </Link>
-                <li className="has-subnav">
-                    <a href="#">
-                        <i className="fa fa-home fa-2x"><BsFillHouseDoorFill /></i>
-                        <span className="nav-text">
-                            Pages
-                        </span>
-                    </a>
-                   
-                </li>
-                <li>
-                    <a href="#">
-                        <i className="fa fa-home fa-2x"><BsFillHouseDoorFill /></i>
-                        <span className="nav-text">
-                            Graphs and Statistics
-                        </span>
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <i className="fa fa-home fa-2x"><BsFillHouseDoorFill /></i>
-                        <span className="nav-text">
-                           Quotes
-                        </span>
-                    </a>
-                </li>
-                <li>
-                   <a href="#">
-                        <i className="fa fa-home fa-2x"><BsFillHouseDoorFill /></i>
-                        <span className="nav-text">
-                            Tables
-                        </span>
-                    </a>
-                </li>
-                <li>
-                   <a href="#">
-                        <i className="fa fa-home fa-2x"><BsFillHouseDoorFill /></i>
-                        <span className="nav-text">
-                            Maps
-                        </span>
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <i className="fa fa-home fa-2x"><BsFillHouseDoorFill /></i>
-                        <span className="nav-text">
-                            Documentation
-                        </span>
-                    </a>
-                </li>
             </ul>
 
             <ul className="logout">
@@ -98,7 +50,8 @@ function Dashboard() {
         <div className="body-text">
           <Routes>
             <Route path='' element={<Content />} />
-            <Route path='form' element={<ApplicationForm />} />
+            <Route path='add/*' element={<AddForm />} />
+            <Route path='form/:formId' element={<UnicForm />} />
           </Routes>
         </div>
     </div>

@@ -32,6 +32,12 @@ function Login() {
   }, [success]);
 
   const onSuccess = async (res) => {
+    let email = res.profileObj.email
+    
+    if(email.substring((email.length-12), (email.length)) != "@utec.edu.pe") {
+      return
+    }
+
     try {
       const response = await axios.post(AUTH_URL,
         JSON.stringify({
@@ -52,13 +58,8 @@ function Login() {
         console.log("ERROR");
         console.log(err.response);
     }
-    console.log("GoogleId: ", res.googleId);
-    console.log("Nombre: ", res.profileObj.name);
-    console.log("Cargo: ", "Profesor");
-    console.log("Correo: ", res.profileObj.email);
     setSuccess(true);
   }
-
   
   const onFailure = (res) => {
     console.log("LOGIN FAILED! res:", res);

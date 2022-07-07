@@ -37,7 +37,7 @@ type Encuestas struct {
 
 	Moneda string `json:"Moneda"`
 
-	Estado_financiamiento string `json:"Estado_financiamiento"`
+	Se_requiere_aprovacion bool `json:"Se_requiere_aprovacion"`
 
-	Se_requiere_aprovacion string `json:"Se_requiere_aprovacion"`
+	Estado_financiamiento int `json:"Estado_financiamiento"`
 }
