@@ -9,6 +9,8 @@ import { Routes, Route } from 'react-router-dom';
 import './Dashboard.scss';
 import { Form } from 'react-bootstrap';
 import AddForm from '../AddForm/AddForm';
+import Panel from '../Panel/Panel';
+import AdminAuth from '../AdminAuth/AdminAuth';
 
 
 function Dashboard() {
@@ -39,6 +41,19 @@ function Dashboard() {
                       </a>
                   </li>
                 </Link>
+                { 
+                  JSON.parse(window.localStorage.getItem('user-session')).Cargo === 'Profesor' ?
+                  <Link to='panel'>
+                    <li className="has-subnav">
+                        <a href="#">
+                            <i className="fa fa-home fa-2x"><BsLayoutTextSidebarReverse /></i>
+                            <span className="nav-text">
+                                Panel
+                            </span>
+                        </a>
+                    </li>
+                  </Link> : <></>
+                }
             </ul>
 
             <ul className="logout">
@@ -52,6 +67,10 @@ function Dashboard() {
             <Route path='' element={<Content />} />
             <Route path='add/*' element={<AddForm />} />
             <Route path='form/:formId' element={<UnicForm />} />
+            <Route path='panel' element={<Panel />} />
+            <Route element={<AdminAuth />}>
+              <Route path='new_user' element={<Panel />} />
+            </Route>
           </Routes>
         </div>
     </div>

@@ -9,7 +9,16 @@ function AddForm() {
     const [activeItem, setActiveItem] = useState();
 
     const handleItemClick = async (e, { name }) => {
-        if(name === 'form') {
+        if(name === 'Proyecto nacional estatal') {
+            return navigate('/home/add/form');
+        }
+        if(name === 'Proyecto nacional privado') {
+            return navigate('/home/add/form');
+        }
+        if(name === 'Proyecto internacional') {
+            return navigate('/home/add/form');
+        }
+        if(name === 'Proyecto con fondos de UTEC') {
             return navigate('/home/add/form');
         }
         if(name === 'file') {
@@ -29,9 +38,30 @@ function AddForm() {
                 />
 
                 <Menu.Item
-                name='form'
-                active={activeItem === 'form'}
-                content='Encuesta'
+                name='Proyecto nacional estatal'
+                active={activeItem === 'Proyecto nacional estatal'}
+                content='Proyecto nacional estatal'
+                onClick={handleItemClick}
+                />
+
+                <Menu.Item
+                name='Proyecto nacional privado'
+                active={activeItem === 'Proyecto nacional privado'}
+                content='Proyecto nacional privado'
+                onClick={handleItemClick}
+                />
+
+                <Menu.Item
+                name='Proyecto internacional'
+                active={activeItem === 'Proyecto internacional'}
+                content='Proyecto internacional'
+                onClick={handleItemClick}
+                />
+
+                <Menu.Item
+                name='Proyecto con fondos de UTEC'
+                active={activeItem === 'Proyecto con fondos de UTEC'}
+                content='Proyecto con fondos de UTEC'
                 onClick={handleItemClick}
                 />
             </Menu>
