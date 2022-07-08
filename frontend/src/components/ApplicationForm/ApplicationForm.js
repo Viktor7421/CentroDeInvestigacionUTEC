@@ -1,8 +1,7 @@
-import React, { Component, useState } from 'react'
+import React, { useState } from 'react'
 import axios from 'axios';
-import { Form, Message, Select } from 'semantic-ui-react'
+import { Form, Message } from 'semantic-ui-react'
 import "./ApplicationForm.scss"
-import UploadFile from "../UploadFile/UploadFile"
 
 const FORM_URL = 'http://127.0.0.1:5000/add/forms';
 
@@ -75,12 +74,6 @@ const optionsCurrency = [
     { key: 'otro', text: 'Otro', value: 'Otro' },
 ]
 
-const optionsStatus = [
-    { key: 'fin', text: 'Financiado', value: 'Financiado' },
-    { key: 'nof', text: 'No financiado', value: 'No financiado' },
-    { key: 'pen', text: 'Pendiente', value: 'Pendiente' },
-]
-
 function ApplicationForm() {
 
     const [message, setMessage] = useState('');
@@ -100,8 +93,8 @@ function ApplicationForm() {
     const [overhead, setOverhead] = useState(0);
     const [equip, setEquip] = useState(0);
     const [currency, setCurrency] = useState('');
-    const [status, setStatus] = useState('');
     const [approval, setApproval] = useState(false);
+    const [formId, setFormId] = useState('');
 
     const handleDepAcad = async (e, data) => {
         setDepAcad(data.value)
@@ -120,14 +113,6 @@ function ApplicationForm() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        if (message == '') {
-            setMessage(<Message
-                error
-                header='ERROR'
-                content="Hubo un ERROR al enviar la encuesta."
-            />)
-            return
-        }
         try {
             const response = await axios.post(FORM_URL,
                 JSON.stringify({
@@ -147,9 +132,8 @@ function ApplicationForm() {
                     Overhead:                    parseInt(overhead),
                     Monto_asignado:              parseInt(equip),
                     Moneda:                      currency,
-                    Estado_financiamiento:       status,
                     Se_requiere_aprovacion:      approval,
-                    Estado:                      0
+                    Estado_financiamiento:       0,
                 }),
                 {
                     headers : {
@@ -158,6 +142,7 @@ function ApplicationForm() {
                 });
             console.log("YES");
             console.log(response);
+            setFormId(response.data.ID)
             setMessage(<Message
                 success
                 header='Encuesta Enviada'
@@ -310,21 +295,12 @@ function ApplicationForm() {
                         placeholder='Moneda'
                         onChange={(e, data) => setCurrency(data.value)}
                     />
-                    <Form.Select
-                        fluid
-                        required
-                        label='Estado de financiamiento'
-                        options={optionsStatus}
-                        placeholder='Estado de financiamiento'
-                        onChange={(e, data) => setStatus(data.value)}
-                    />
                 </Form.Group>
-                <UploadFile/>
                 <Form.Checkbox 
                     label='Por favor indique si requiere aprobación de la DIN, DGA y DAF. Esto aplica a todas las propuestas que contemplen un pago de overhead menor a 30%.' 
                     onChange={() => setApproval(!approval)}
                 />
-                <Form.Button>Submit</Form.Button>
+                <Form.Button primary>Submit</Form.Button>
             </Form>
         </div>
     )

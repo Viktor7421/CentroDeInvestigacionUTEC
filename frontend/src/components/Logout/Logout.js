@@ -9,7 +9,7 @@ function Logout() {
     let navigate = useNavigate();
 
     const onSuccess = () => {
-        console.log("Log out successfull!");
+        window.localStorage.removeItem('user-session');
         return navigate('/');
     }
 
