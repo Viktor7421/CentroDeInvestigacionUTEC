@@ -3,8 +3,8 @@ import React, { useEffect, useRef, useState } from "react";
 import { PieChart, Pie, BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import "./Panel.scss"
 
-const GET_FORMS_URL = 'http://127.0.0.1:5000/forms';
-const GET_USER_FORMS_URL = 'http://127.0.0.1:5000/forms/user/';
+const GET_FORMS_URL = 'http://qhapacnan.com:5000/forms';
+const GET_USER_FORMS_URL = 'http://qhapacnan.com:5000/forms/user/';
 const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
 
 function Panel() {
