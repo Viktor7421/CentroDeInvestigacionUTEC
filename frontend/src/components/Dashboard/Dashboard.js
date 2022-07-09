@@ -4,7 +4,7 @@ import Content from '../Content/Content'
 import ApplicationForm from '../ApplicationForm/ApplicationForm'
 import UnicForm from '../Form/Form'
 import { Link } from 'react-router-dom';
-import { BsFillHouseDoorFill, BsLayoutTextSidebarReverse } from 'react-icons/bs';
+import { BsFillHouseDoorFill, BsLayoutTextSidebarReverse, BsFillBarChartFill } from 'react-icons/bs';
 import { Routes, Route } from 'react-router-dom';
 import './Dashboard.scss';
 import { Form } from 'react-bootstrap';
@@ -31,29 +31,29 @@ function Dashboard() {
                       </a>
                   </li>
                 </Link>
-                <Link to='add'>
-                  <li className="has-subnav">
-                      <a href="#">
-                          <i className="fa fa-home fa-2x"><BsLayoutTextSidebarReverse /></i>
-                          <span className="nav-text">
-                              Forms
-                          </span>
-                      </a>
-                  </li>
-                </Link>
                 { 
                   JSON.parse(window.localStorage.getItem('user-session')).Cargo === 'Profesor' ?
-                  <Link to='panel'>
+                  <Link to='add'>
                     <li className="has-subnav">
                         <a href="#">
                             <i className="fa fa-home fa-2x"><BsLayoutTextSidebarReverse /></i>
                             <span className="nav-text">
-                                Panel
+                                Forms
                             </span>
                         </a>
                     </li>
-                  </Link> : <></>
+                  </Link> : <></> 
                 }
+                <Link to='panel'>
+                  <li className="has-subnav">
+                      <a href="#">
+                          <i className="fa fa-home fa-2x"><BsFillBarChartFill /></i>
+                          <span className="nav-text">
+                              Panel
+                          </span>
+                      </a>
+                  </li>
+                </Link> : <></>
             </ul>
 
             <ul className="logout">

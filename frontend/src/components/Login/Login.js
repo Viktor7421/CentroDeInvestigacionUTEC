@@ -34,9 +34,9 @@ function Login() {
   const onSuccess = async (res) => {
     let email = res.profileObj.email
     
-    if(email.substring((email.length-12), (email.length)) != "@utec.edu.pe") {
-      return
-    }
+    // if(email.substring((email.length-12), (email.length)) != "@utec.edu.pe") {
+    //   return
+    // }
 
     try {
       const response = await axios.post(AUTH_URL,

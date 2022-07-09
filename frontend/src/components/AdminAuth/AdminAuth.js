@@ -11,7 +11,7 @@ const AdminAuth = () => {
     const location = useLocation();
 
     return (
-        JSON.parse(window.localStorage.getItem('user-session')).Cargo === 'Profesor'
+        JSON.parse(window.localStorage.getItem('user-session')).Cargo === 'Administrador'
             ? <Outlet />
             : <Navigate to='/home' state={{from: location}} replace />
     )
