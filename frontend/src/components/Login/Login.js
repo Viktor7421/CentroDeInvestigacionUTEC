@@ -8,7 +8,7 @@ import { gapi } from 'gapi-script';
 import './Login.scss';
 
 const clientId = "540283367101-adurt52vr2dugihk25oh12dihiv9k2ju.apps.googleusercontent.com";
-const AUTH_URL = 'http:/qhapacnan.com/users/auth';
+const AUTH_URL = 'http:/20.205.176.17:5000/users/auth';
 
 function Login() {
   let navigate = useNavigate();
