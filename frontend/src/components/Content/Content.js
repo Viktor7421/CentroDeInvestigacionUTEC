@@ -3,8 +3,8 @@ import axios from 'axios';
 import { Table, Menu, Icon, Dimmer, Loader, Input, Dropdown } from 'semantic-ui-react'
 import { Link, useNavigate } from 'react-router-dom';
 
-const GET_FORMS_URL = 'http://20.205.176.17:5000/forms';
-const GET_USER_FORMS_URL = 'http://20.205.176.17:5000/forms/user/';
+const GET_FORMS_URL = 'https://qhapacnan.com:5000/forms';
+const GET_USER_FORMS_URL = 'https://qhapacnan.com:5000/forms/user/';
 
 function Content () {
   let navigate = useNavigate();
