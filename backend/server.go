@@ -12,8 +12,6 @@ import (
 	"github.com/gorilla/mux"
 
 	"github.com/rs/cors"
-
-
 )
 
 func main() {
@@ -36,6 +34,8 @@ func main() {
 
 	router.HandleFunc("/forms", handlers.GetForms).Methods("GET")
 
+	router.HandleFunc("/forms/user/{id}", handlers.GetFormsUser).Methods("GET")
+
 	router.HandleFunc("/forms/{id}", handlers.GetForm).Methods("GET")
 
 	router.HandleFunc("/add/forms", handlers.PostForm).Methods("POST")
@@ -45,6 +45,10 @@ func main() {
 	router.HandleFunc("/forms/{id}", handlers.DeleteForm).Methods("DELETE")
 
 	router.HandleFunc("/add/file/{id}", handlers.PostFile).Methods("POST")
+
+	router.HandleFunc("/forms/validate/{id}", handlers.ValidateForm).Methods("POST")
+
+	router.HandleFunc("/forms/denegate/{id}", handlers.DenegateForm).Methods("POST")
 
 	handler := cors.Default().Handler(router)
 

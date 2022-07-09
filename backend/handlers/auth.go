@@ -15,7 +15,7 @@ func Auth(w http.ResponseWriter, r *http.Request) {
 	err := json.NewDecoder(r.Body).Decode(&user_cur)
 
 	if err != nil {
-		http.Error(w, "Error en los datos recibidos"+err.Error(), 400)
+		http.Error(w, "Ez	"+err.Error(), 400)
 		return
 	}
 
